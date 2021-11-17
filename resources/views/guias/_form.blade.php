@@ -16,8 +16,7 @@
 </div>
 <div class="form-group">
     <label for="duracion">Duración</label>
-    <input id="duracion" class="form-control" type="datetime" name="duracion"
-    value="{{ isset($guia->duracion)?$guia->duracion:old('duracion')}} " required>
+    <input id="duracion" class="form-control" type="datetime" name="duracion" placeholder="2021-11-11 23:59:59" value="{{ isset($guia->duracion)?$guia->duracion:old('duracion')}} " placeholder="Categoria del Producto"  required>
 </div>
 <div class="form-group">
     

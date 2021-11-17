@@ -40,7 +40,7 @@
 </div>
 @endsection
 @section('script')
-<script src="{{asset('js/edit.js')}}"> </script>    
+<script src=""> </script>    
 @endsection
 
 

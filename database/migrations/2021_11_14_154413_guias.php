@@ -18,7 +18,7 @@ class Guias extends Migration
             $table->string('nombre');
             $table->string('descripcion');
             $table->string('tema');
-            $table->time('duracion');
+            $table->dateTime('duracion');
             $table->string('guiaPDF')->nullable();
             $table->timestamps();
 

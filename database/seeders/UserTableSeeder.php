@@ -23,13 +23,13 @@ class UserTableSeeder extends Seeder
         ]);
 
         $instructor->assignRole('instructor');
-
+/* 
         $aprendiz = User::create([
             'name' => 'aprendiz1',
             'email' => 'aprendiz1@email.com',
             'password' => bcrypt('12345678')
         ]);
         
-        $aprendiz->assignRole('aprendiz');
+        $aprendiz->assignRole('aprendiz'); */
     }
 }

@@ -42,16 +42,23 @@ class GuiaController extends Controller
         $instructor = User::where('id','=',$user_id)->get('name'); 
         Guia::insert($datos);
         $pdf = PDF::loadView('guias.pdf',compact('datos','instructor'));
+        $mensaje='La orden de compra se ha generado con éxito, se ha descargado un archivo PDF. Si desea visualizar nuevamente la orden generada diríjase a la opción "Orden de compra -> Órdenes de compra."';
+  
+        session()->flash('success',$mensaje);
         return $pdf->download($today.'_'.$nombreGuia.'.pdf');
+        
         //return $pdf->stream($today.$nombreGuia.'guias.pdf');
         
         //return redirect()->route('guias.index'); 
     }
 
    
-    public function show(Guia $guias)
+    public function show($guiaPDF)
     {
-        //
+        $pdf_name= $guiaPDF;
+        $url = url('pdf/'.$pdf_name);
+        return Storage::get($url);
+        
     }
 
    

@@ -30,10 +30,8 @@
                 <th>Descripción</th>
                 <th>Tema</th>
                 <th>Duracion</th>
-                <th>PDF</th>
-                @can('instructor.edit')  
+                <th>PDF</th> 
                 <th>Acciones</th>
-                @endcan
             </tr>
         </thead>
         <tbody>
@@ -45,19 +43,32 @@
                 <td>{{ $guia->descripcion }}</td>
                 <td>{{ $guia->tema }}</td>
                 <td>{{ $guia->duracion }}</td>
-                <td>{{ $guia->guiaPDF }}</td>
-
-                @can('instructor.edit')                   
-                
+               
                 <td>
+                    <iframe id="inlineFrameExample"
+                        title="Inline Frame Example"
+                        width="250"
+                        height="180"
+                        src="pdf/{{$guia->guiaPDF}}">
+                    </iframe>
                     
-                    <a class="btn btn-primary" href="{{ route('guias.edit',$guia) }}" >Editar</a>
-                    <form action="{{ route('guias.destroy',$guia) }}" method="post" class="d-inline">|
-                        @csrf @method('DELETE')
-                        <input type="submit" value="Borrar" class="btn btn-danger" onclick="return confirm('Deseas borrar la guia?')">
-                    </form>
                 </td>
-                @endcan
+                                  
+                
+                <td> 
+                    @if(asset($guia->guiaPDF))
+                    <a class="btn btn-warning" href="\pdf\{{$guia->guiaPDF}} " target="_blanck">Ver PDF</a>
+                    {{-- <a class="btn btn-warning" href="{{ route('guias.show',$guia->guiaPDF) }}" >Ver PDF</a> --}}
+                    @endif
+                    @can('instructor.edit') 
+                        | <a class="btn btn-primary" href="{{ route('guias.edit',$guia) }}" >Editar</a>
+                        <form action="{{ route('guias.destroy',$guia) }}" method="post" class="d-inline">|
+                            @csrf @method('DELETE')
+                            <input type="submit" value="Borrar" class="btn btn-danger" onclick="return confirm('Deseas borrar la guia?')">
+                        </form>
+                    @endcan
+                </td>
+                
             </tr>
             @endforeach  
         </tbody>
