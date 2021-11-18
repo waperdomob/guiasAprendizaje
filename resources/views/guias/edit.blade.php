@@ -5,11 +5,23 @@
       <form action="{{ route('guias.update',$guia->id) }}" method="post" enctype="multipart/form-data">        
         @csrf @method('PATCH')
         @include('guias._form')
-        
-        <div class="form-group">
+
+        @if (isset($guia->guiaPDF))
+                    <iframe id="inlineFrameExample"
+                        title="Inline Frame Example"
+                        width="250"
+                        height="180"
+                        src="../../pdf/{{$guia->guiaPDF}}">
+                    </iframe>  
+                    <input type="" class="form-control" name="guiaPDF" id="guiaPDF" value="{{ isset($guia->guiaPDF)?$guia->guiaPDF:old('guiaPDF') }}" ><br>              
+         @else
+         <div class="form-group">
             <label for="guiaPDF">Guia PDF</label><br>
             <input type="file" class="form-control" name="guiaPDF" id="guiaPDF" value=""><br>
-        </div>
+        </div>      
+            
+        @endif
+        
         <div class="row">
             <div class="col-md-4">
                 <label for="ficha_id">Fichas</label><br>

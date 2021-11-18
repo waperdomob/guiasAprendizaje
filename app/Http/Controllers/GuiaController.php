@@ -89,26 +89,50 @@ class GuiaController extends Controller
             else{
                  return redirect()->route('guias.index')->with('mensaje','el archivo no es un PDF');
             }
-        }
-        if ($request['ficha_id'])
+
+            if ($request['ficha_id'])
         {
             
             $aprendices= User::where('ficha_id','=',$request['ficha_id'])->get();
             Guia::where('id','=',$id)->update($datos);
             Guia::where('id','=',$id)->update(['guiaPDF'=>$nombre]);
             
-            foreach ($aprendices as $aprendiz) {
+                foreach ($aprendices as $aprendiz) {
                 
-            $guia->users()->attach($aprendiz->id);
+                    $guia->users()->attach($aprendiz->id);
+                }
+            return redirect()->route('guias.index');
             }
-            return redirect()->route('guias.index');
+            elseif ($request['aprendiz']) {
+                Guia::where('id','=',$id)->update($datos);
+                Guia::where('id','=',$id)->update(['guiaPDF'=>$nombre]);
+                $guia->users()->attach($request['aprendiz']);
+                return redirect()->route('guias.index');
+            }
         }
-        elseif ($request['aprendiz']) {
-            Guia::where('id','=',$id)->update($datos);
-            Guia::where('id','=',$id)->update(['guiaPDF'=>$nombre]);
-            $guia->users()->attach($request['aprendiz']);
-            return redirect()->route('guias.index');
+        else {
+            $nombre = $request->nombre;
+            if ($request['ficha_id'])
+            {
+                
+                $aprendices= User::where('ficha_id','=',$request['ficha_id'])->get();
+                Guia::where('id','=',$id)->update($datos);
+                
+                    foreach ($aprendices as $aprendiz) {
+                    
+                        $guia->users()->attach($aprendiz->id);
+                    }
+                return redirect()->route('guias.index');
+                }
+                elseif ($request['aprendiz']) {
+                    Guia::where('id','=',$id)->update($datos);
+                    
+                    $guia->users()->attach($request['aprendiz']);
+                    
+                    return redirect()->route('guias.index');
+                }
         }
+        
         
     }
 
