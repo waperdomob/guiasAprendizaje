@@ -37,10 +37,11 @@
         
             <a class="btn btn-secondary" href="{{ route('guias.index')}}">Regresar</a>         
     </form>
+    <script src="/js/edit.js"> </script> 
 </div>
 @endsection
 @section('script')
-<script src=""> </script>    
+   
 @endsection
 
 
