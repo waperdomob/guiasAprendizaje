@@ -19,9 +19,26 @@ class GuiaController extends Controller
     
 
     public function index()
+
     {
-        $datos['guias'] =  Guia::paginate(5);
-        return view('guias.index',$datos);
+        $id = auth()->user()->id;
+        $user = User::where('id','=',$id)->first();
+        $pivots = $user->guias;
+        $roles = $user->roles;
+        foreach ($roles as $rol) {
+            if ($rol->pivot['role_id'] == 1){
+                $datos['guias'] =  Guia::paginate(5);
+                $guias =  Guia::paginate(5);
+                return view('guias.index', compact('guias'));
+
+            }
+            else {
+                $datos['guias'] =  Guia::paginate(5);
+                $guias =  Guia::paginate(5);
+                return view('guias.indexA', compact('guias','id','pivots'));
+            }
+        }
+        
     }
 
     public function create()
@@ -128,7 +145,7 @@ class GuiaController extends Controller
                     Guia::where('id','=',$id)->update($datos);
                     
                     $guia->users()->attach($request['aprendiz']);
-                    
+
                     return redirect()->route('guias.index');
                 }
         }

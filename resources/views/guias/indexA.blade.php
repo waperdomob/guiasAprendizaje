@@ -35,7 +35,9 @@
             </tr>
         </thead>
         <tbody>
+            @foreach ($pivots as $pivot)                    
             @foreach ($guias as $guia)           
+            @if ($guia->id == $pivot->pivot['guia_id'])
             <tr>
                 <td>{{ $guia->id }}</td>
                 <td>{{ $guia->nombre }}</td>
@@ -69,6 +71,8 @@
                 </td>
                 
             </tr>
+            @endif
+            @endforeach  
             @endforeach
         </tbody>
         
